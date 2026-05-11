@@ -1,0 +1,129 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["metadata", "aboutCompany", "roleAlignment", "roleNonAlignment", "hiringManager", "preparationFocus", "researchLinks"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateName", "targetRole", "companyName", "confidenceNotes"],
+      "properties": {
+        "candidateName": { "type": "string" },
+        "targetRole": { "type": "string" },
+        "companyName": { "type": "string" },
+        "confidenceNotes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "aboutCompany": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["keyInformation", "additionalInformation", "presenceInIndia"],
+      "properties": {
+        "keyInformation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mainProductsServices", "businessSegments", "topLine", "bottomLine", "headcount", "headquarters"],
+          "properties": {
+            "mainProductsServices": { "type": "string" },
+            "businessSegments": { "type": "string" },
+            "topLine": { "type": "string" },
+            "bottomLine": { "type": "string" },
+            "headcount": { "type": "string" },
+            "headquarters": { "type": "string" }
+          }
+        },
+        "additionalInformation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["globalPresence", "topCustomers", "topCompetitors"],
+          "properties": {
+            "globalPresence": { "type": "string" },
+            "topCustomers": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "topCompetitors": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "presenceInIndia": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mainProductsServices", "businessSegments", "topLine", "bottomLine", "headcount", "locationsInIndia", "bangaloreSpecifics"],
+          "properties": {
+            "mainProductsServices": { "type": "string" },
+            "businessSegments": { "type": "string" },
+            "topLine": { "type": "string" },
+            "bottomLine": { "type": "string" },
+            "headcount": { "type": "string" },
+            "locationsInIndia": { "type": "string" },
+            "bangaloreSpecifics": { "type": "string" }
+          }
+        }
+      }
+    },
+    "roleAlignment": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["requirement", "resumeEvidence", "talkTrack"],
+        "properties": {
+          "requirement": { "type": "string" },
+          "resumeEvidence": { "type": "string" },
+          "talkTrack": { "type": "string" }
+        }
+      }
+    },
+    "roleNonAlignment": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gap", "risk", "mitigation"],
+        "properties": {
+          "gap": { "type": "string" },
+          "risk": { "type": "string" },
+          "mitigation": { "type": "string" }
+        }
+      }
+    },
+    "hiringManager": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "currentRole", "experience", "background", "education", "passionsInterests", "interviewRelevance"],
+      "properties": {
+        "name": { "type": "string" },
+        "currentRole": { "type": "string" },
+        "experience": { "type": "string" },
+        "background": { "type": "string" },
+        "education": { "type": "string" },
+        "passionsInterests": { "type": "string" },
+        "interviewRelevance": { "type": "string" }
+      }
+    },
+    "preparationFocus": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "researchLinks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["section", "label", "url", "why"],
+        "properties": {
+          "section": { "type": "string" },
+          "label": { "type": "string" },
+          "url": { "type": "string" },
+          "why": { "type": "string" }
+        }
+      }
+    }
+  }
+}

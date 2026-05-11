@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview Preperation Studio</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="logo.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-logo" aria-label="Interview Preperation Studio logo">
+            <span>I</span>
+            <span>P</span>
+          </div>
+          <div>
+          <p class="eyebrow">Codex powered interview workspace</p>
+          <h1><span>Interview</span> <span>Preperation</span> <span>Studio</span></h1>
+          <p class="hero-copy">Turn a resume, JD, and company note into a focused brief you can actually use before the call.</p>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="ghost-button" id="saveSearchBtn" type="button" disabled>Save search</button>
+          <button class="ghost-button" id="resetBtn" type="button">Reset</button>
+          <button class="primary-button" id="generateBtn" type="button" disabled>Generate</button>
+        </div>
+      </header>
+
+      <section class="history-panel" aria-labelledby="historyTitle">
+        <div>
+          <p class="eyebrow">Saved workspace</p>
+          <h2 id="historyTitle">Past searches</h2>
+        </div>
+        <div class="history-controls" role="tablist" aria-label="Saved search filters">
+          <button class="history-filter active" type="button" data-filter="active">Active</button>
+          <button class="history-filter" type="button" data-filter="archived">Archived</button>
+        </div>
+        <div class="history-list" id="historyList">
+          <p class="history-empty">Saved searches will appear here after generation.</p>
+        </div>
+      </section>
+
+      <div class="focus-controls" aria-label="Workspace focus controls">
+        <button class="focus-button active" id="resourcesFocusBtn" type="button" data-focus="resources">
+          <i class="icon icon-list" aria-hidden="true"></i>
+          Update resources
+        </button>
+        <button class="focus-button" id="reviewFocusBtn" type="button" data-focus="review">
+          <i class="icon icon-search" aria-hidden="true"></i>
+          Review key info
+        </button>
+      </div>
+
+      <section class="studio-grid resources-focus" id="studioGrid" aria-label="Interview preparation workspace">
+        <section class="panel resources-panel" aria-labelledby="resourcesTitle">
+          <div class="section-heading">
+            <span class="section-number">I</span>
+            <div>
+              <h2 id="resourcesTitle">Resources</h2>
+              <p>Paste only. Read the output on the right.</p>
+            </div>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Resource tabs">
+            <button class="tab active" id="resumeTab" role="tab" aria-selected="true" data-tab="resume" type="button">Resume</button>
+            <button class="tab" id="jdTab" role="tab" aria-selected="false" data-tab="jd" type="button">JD</button>
+            <button class="tab" id="companyTab" role="tab" aria-selected="false" data-tab="company" type="button">Company</button>
+            <button class="tab" id="hiringManagerTab" role="tab" aria-selected="false" data-tab="hiringManager" type="button">Hiring Manager</button>
+          </div>
+
+          <div class="editor-frame">
+            <label id="editorLabel" for="resourceEditor">Resume</label>
+            <textarea id="resourceEditor" spellcheck="true" placeholder="Paste the candidate resume here."></textarea>
+            <div class="editor-meta">
+              <span id="saveState">Not updated</span>
+              <span id="charCount">0 characters</span>
+            </div>
+          </div>
+
+          <div class="resource-health" aria-label="Resource completion">
+            <div>
+              <span>Resume</span>
+              <strong id="resumeMeter">Empty</strong>
+            </div>
+            <div>
+              <span>JD</span>
+              <strong id="jdMeter">Empty</strong>
+            </div>
+            <div>
+              <span>Company</span>
+              <strong id="companyMeter">Optional</strong>
+            </div>
+            <div>
+              <span>Hiring Manager</span>
+              <strong id="hiringManagerMeter">Optional</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel output-panel" aria-labelledby="keyInfoTitle">
+          <div class="section-heading">
+            <span class="section-number">II</span>
+            <div>
+              <h2 id="keyInfoTitle">Key Information</h2>
+              <p>Readable interview intelligence, not a wall of text.</p>
+            </div>
+          </div>
+
+          <div class="brief-hero" aria-label="Brief visual summary">
+            <div class="brief-copy">
+              <p class="brief-kicker"><i class="icon icon-bolt" aria-hidden="true"></i>Interview command center</p>
+              <h3>Company facts, role fit, and action items in one sharp view.</h3>
+            </div>
+            <div class="brief-picture" aria-hidden="true">
+              <span><i class="icon icon-building"></i></span>
+              <span><i class="icon icon-link"></i></span>
+              <span><i class="icon icon-user"></i></span>
+            </div>
+          </div>
+
+          <div class="result-toolbar">
+            <div>
+              <p class="status-label" id="statusLabel">Waiting for resources</p>
+              <p class="status-detail" id="statusDetail">Add resume and JD text to enable generation.</p>
+            </div>
+            <span class="source-pill" id="sourcePill">Draft</span>
+          </div>
+
+          <div class="empty-state" id="emptyState">
+            <h3>Brief will appear here</h3>
+            <p>Generate after updating the resources. The backend calls Codex locally and returns structured preparation notes.</p>
+          </div>
+
+          <div class="codex-progress hidden" id="codexProgress" aria-live="polite">
+            <div class="progress-topline">
+              <div>
+                <p class="progress-kicker">Codex is running</p>
+                <h3 id="progressTitle">Preparing analysis</h3>
+              </div>
+              <div class="time-box">
+                <span id="elapsedTime">0s</span>
+                <small id="etaTime">Usually 60-180s</small>
+              </div>
+            </div>
+            <div class="progress-track">
+              <span id="progressFill"></span>
+            </div>
+            <ol class="progress-steps">
+              <li class="active" data-step="0">Reading resources</li>
+              <li data-step="1">Fetching company context</li>
+              <li data-step="2">Comparing role fit</li>
+              <li data-step="3">Writing interview brief</li>
+            </ol>
+          </div>
+
+          <div class="results hidden" id="results">
+            <div class="summary-strip">
+              <div>
+                <span>Candidate</span>
+                <strong id="candidateName">-</strong>
+              </div>
+              <div>
+                <span>Target role</span>
+                <strong id="targetRole">-</strong>
+              </div>
+              <div>
+                <span>Company</span>
+                <strong id="companyName">-</strong>
+              </div>
+            </div>
+
+            <article class="result-section open">
+              <button class="section-toggle" type="button" aria-expanded="true">
+                <span><i class="icon icon-building" aria-hidden="true"></i>About company</span>
+                <small id="aboutCompanyCount">3 fields</small>
+              </button>
+              <div class="section-body">
+                <div id="aboutCompany" class="company-grid"></div>
+              </div>
+            </article>
+
+            <article class="result-section open">
+              <button class="section-toggle" type="button" aria-expanded="true">
+                <span><i class="icon icon-check" aria-hidden="true"></i>Role alignment</span>
+                <small id="roleAlignmentCount">0 items</small>
+              </button>
+              <div class="section-body">
+                <div id="roleAlignment" class="company-grid"></div>
+              </div>
+            </article>
+
+            <article class="result-section open">
+              <button class="section-toggle" type="button" aria-expanded="true">
+                <span><i class="icon icon-alert" aria-hidden="true"></i>Role non alignment</span>
+                <small id="roleNonAlignmentCount">0 items</small>
+              </button>
+              <div class="section-body">
+                <div id="roleNonAlignment" class="company-grid"></div>
+              </div>
+            </article>
+
+            <article class="result-section open">
+              <button class="section-toggle" type="button" aria-expanded="true">
+                <span><i class="icon icon-user" aria-hidden="true"></i>Hiring Manager</span>
+                <small id="hiringManagerCount">6 fields</small>
+              </button>
+              <div class="section-body">
+                <div id="hiringManagerDetails" class="company-grid"></div>
+              </div>
+            </article>
+
+            <article class="result-section open">
+              <button class="section-toggle" type="button" aria-expanded="true">
+                <span><i class="icon icon-list" aria-hidden="true"></i>Preparation focus</span>
+                <small id="preparationFocusCount">0 items</small>
+              </button>
+              <div class="section-body">
+                <div id="preparationFocus" class="company-grid"></div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
